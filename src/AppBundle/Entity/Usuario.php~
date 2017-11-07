@@ -1,0 +1,117 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use FOS\UserBundle\Entity\User as BaseUser;
+
+/**
+ * Usuario
+ *
+ * @ORM\Table(name="usuario")
+ * @ORM\Entity
+ */
+class Usuario extends BaseUser
+{
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="sangreU", type="string", length=5, nullable=true)
+     */
+    private $sangreu;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="fotoU", type="blob", length=65535, nullable=true)
+     */
+    private $fotou;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nombreU", type="string", length=25, nullable=true)
+     */
+    private $nombreu;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="telefonoU", type="string", length=25, nullable=true)
+     */
+    private $telefonou;
+
+    /**
+     * @var binary
+     *
+     * @ORM\Column(name="contraU", type="string", length=255, nullable=false)
+     */
+    private $contrau;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="apellidoMU", type="string", length=25, nullable=true)
+     */
+    private $apellidomu;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="apellidoPU", type="string", length=25, nullable=true)
+     */
+    private $apellidopu;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="calleU", type="string", length=25, nullable=true)
+     */
+    private $calleu;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="correoU", type="string", length=50, nullable=true)
+     */
+    private $correou;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="coloniaU", type="string", length=25, nullable=true)
+     */
+    private $coloniau;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="noCasaU", type="string", length=10, nullable=true)
+     */
+    private $nocasau;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="paisU", type="string", length=25, nullable=true)
+     */
+    private $paisu;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="estado", type="string", length=25, nullable=true)
+     */
+    private $estado;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="idUsuario", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $idusuario;
+
+
+}

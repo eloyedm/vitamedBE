@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>VitalMed - Home</title>
+    <meta charset="utf-8">
+	<link rel="stylesheet" href="{{ asset('bundles/app/css/style.css')}}" media="screen" title="no title" charset="utf-8">
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+
+    <script type="text/javascript" src="{{ asset("bundles/app/js/jquery-3.2.1.min.js") }}"> </script>
+    <link rel="stylesheet" href="{{ asset('bundles/app/js/jCarousel/jcarousel.basic.css')}}" media="screen" title="no title" charset="utf-8">
+
+    <script type="text/javascript" src="{{ asset("bundles/app/js/jCarousel/jcarousel.basic.js") }}"> </script>
+    <script type="text/javascript" src="{{ asset("bundles/app/js/jCarousel/jquery.jcarousel.min.js") }}"> </script>
+</head>
+<body class="col">
+	<header>
+		<ul class="nolist">
+			<li><a href="#"><img class="logo" src="{{asset('bundles/app/images/Logo.png')}}"></a></li>
+
+			<li><a href="#">Inicio</a></li>
+			<li><a href="#">Quienes Somos</a></li>
+			<li><a href="#">Descubre</a></li>
+			<li><a href="#">Contacto</a></li>
+		</ul>
+	</header>
+	<div class="container f-around">
+		<div class="row">
+			<div class="row ">
+				<div class="card blue-theme col f-between nmargin side">
+					<h3>VitalMed es</h3>
+					<h1>GRATIS</h1>
+					<div class="col">
+						<div class="overBox">
+							<p>&iquest;A&uacute;n no tienes una cuenta&quest;</p>
+							<input type="button" name="SignIn" value="Registrate aqu&iacute;">
+						</div>
+						<div class="col">
+							<div>
+								<p>&iquest;Ya tienes una cuenta&quest;</p>
+								<input type="button" name="SignIn" value="Inicia sesi&oacute;n">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card col nmargin">
+
+				<div class="card t-left">
+					<div class="wrapper">
+			            <div class="jcarousel-wrapper">
+			                <div class="jcarousel">
+			                    <ul>
+			                        <li><img src="{{asset('bundles/app/images/img1.png')}}" alt=""></li>
+			                        <li><img src="{{asset('bundles/app/images/img2.png')}}" alt=""></li>
+			                        <li><img src="{{asset('bundles/app/images/img3.png')}}" alt=""></li>
+			                    </ul>
+			                </div>
+
+			                <p class="photo-credits">
+			                    VitalMed
+			                </p>
+
+			                <a href="#" class="jcarousel-control-prev">&lsaquo;</a>
+			                <a href="#" class="jcarousel-control-next">&rsaquo;</a>
+
+			                <p class="jcarousel-pagination">
+
+			                </p>
+			            </div>
+			        </div>
+
+					<h3>Que es VitaMed</h3>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget.</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<footer>
+		<ul class="nolist f-center">
+			<li><a href="#">Aviso de Terminos y Condiciones</a></li>
+			<li><a href="#">Tel&eacute;fono: (+52 -81) 1948 - 6763</a></li>
+			<li><a href="#">Correo electr&oacute;nico: vitalmed@outlook.es</a></li>
+			<li><a href="#">VitalMed es creado por Alcance M&eacute;dico S.A de C.V</a></li>
+		</ul>
+	</footer>
+</body>
+</html>

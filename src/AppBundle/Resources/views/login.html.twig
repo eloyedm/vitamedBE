@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Login</title>
+	<link rel="stylesheet" href="{{ asset('bundles/app/css/style.css')}}" media="screen" title="no title" charset="utf-8">
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+</head>
+<body class="col">
+	<header>
+		<ul class="nolist">
+			<li><a href="#"><img class="logo" src="{{asset('bundles/app/images/Logo.png')}}"></a></li>
+
+			<li><a href="#">Inicio</a></li>
+			<li><a href="#">Quienes Somos</a></li>
+			<li><a href="#">Descubre</a></li>
+			<li><a href="#">Contacto</a></li>
+		</ul>
+	</header>
+	<div class="container f-center">
+		<div class="card blue-theme col row4">
+				<h3>Inicio de Sesi&oacute;n</h3>
+				<h4>Usuario</h4>
+				<input type="text" name="mail"  placeholder="Usuario">
+				<h4>Contrase&ntilde;a</h4>
+				<input type="password" name="password" placeholder="Contrase&ntilde;a">
+				<div class="f-between">
+					<span>
+						<input id="keepopen" type="checkbox" name="GuardarSesion">
+						<label for="keepopen" >No cerrar sesi&oacute;n</label>
+					</span>
+					<span><a href="#">&iquest;Has olvidado tu contrase&ntilde;a&quest;</a></span>
+				</div>
+				<div class="t-right">
+					<div id="logInCtr">
+						<input type="submit" id="logInBtn" name="submit" value="Iniciar Sesi&oacute;n">
+					</div>
+
+					<p><a href="#" class="right">&iquest;Aun no tienes una cuenta&quest; Registrate aqui</a></p>
+				</div>
+		</div>
+	</div>
+	<footer>
+		<ul class="nolist f-center">
+			<li><a href="#">Aviso de Terminos y Condiciones</a></li>
+			<li><a href="#">Tel&eacute;fono: (+52 -81) 1948 - 6763</a></li>
+			<li><a href="#">Correo electr&oacute;nico: vitalmed@outlook.es</a></li>
+			<li><a href="#">VitalMed es creado por Alcance M&eacute;dico S.A de C.V</a></li>
+		</ul>
+	</footer>
+  <script type="text/javascript" src="{{ asset("bundles/app/js/jquery-3.2.1.min.js") }}"> </script>
+  <script type="text/javascript" src="{{ asset("bundles/app/js/script.js") }}"> </script>
+</body>
+</html>

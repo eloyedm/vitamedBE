@@ -1,0 +1,63 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Notificacion
+ *
+ * @ORM\Table(name="notificacion", indexes={@ORM\Index(name="C_Notificacion", columns={"citaN"})})
+ * @ORM\Entity
+ */
+class Notificacion
+{
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="fechaN", type="date", nullable=true)
+     */
+    private $fechan;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="horaN", type="time", nullable=true)
+     */
+    private $horan;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="mensajeN", type="string", length=25, nullable=true)
+     */
+    private $mensajen;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="estatusN", type="boolean", nullable=true)
+     */
+    private $estatusn;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="idNotificacion", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $idnotificacion;
+
+    /**
+     * @var \AppBundle\Entity\Cita
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Cita")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="citaN", referencedColumnName="idCita")
+     * })
+     */
+    private $citan;
+
+
+}

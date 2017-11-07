@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>SignIn</title>
+  <script type="text/javascript" src="{{ asset("bundles/app/js/script.js") }}"> </script>
+  <link rel="stylesheet" href="{{ asset('bundles/app/css/style.css')}}" media="screen" title="no title" charset="utf-8">
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+</head>
+<body class="col">
+	<header>
+		<ul class="nolist">
+			<li><a href="#"><img class="logo" src="{{asset('bundles/app/images/Logo.png')}}"></a></li>
+
+			<li><a href="#">Inicio</a></li>
+			<li><a href="#">Quienes Somos</a></li>
+			<li><a href="#">Descubre</a></li>
+			<li><a href="#">Contacto</a></li>
+		</ul>
+	</header>
+	<div class="container f-center">
+		<div class="card blue-theme col">
+			<h3>Crear cuenta</h3>
+			<p>Estas a punto de conseguir tu propia cuenta,
+			<br>pero antes; ocupamos unos datos.</p>
+			<div class="col">
+				<div class="row">
+					<div class="col">
+						<h4>Nombre de Usuario</h4>
+						<input type="text" name="User"  placeholder="Usuario">
+					</div>
+					<div class="col">
+						<h4>Correo electr&oacute;nico</h4>
+						<input type="email" name="User"  placeholder="Usuario">
+					</div>
+				</div>
+				<div class="row">
+					<div class="col">
+						<h4>Contrase&ntilde;a</h4>
+						<input type="password" name="Pass" placeholder="Contrase&ntilde;a">
+					</div>
+					<div class="col">
+						<h4>Confirma tu contrase&ntilde;a</h4>
+						<input type="password" name="Pass" placeholder="Contrase&ntilde;a">
+					</div>
+				</div>
+				<h4>&nbsp;</h4>
+				<div class="col">
+					<div class="col">
+						<h4>Nombre(s)</h4>
+						<input type="text" name="Nom"  placeholder="Nombre(s)">
+					</div>
+					<div class="col">
+						<h4>Apellidos</h4>
+						<div class="row">
+							<div class="col">
+								<input type="text" name="aPat" placeholder="Apellido Paterno">
+							</div>
+							<div class="col">
+								<input type="text" name="aMat" placeholder="Apellido Materno">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<h4>&nbsp;</h4>
+			<div class="row f-between">
+				<a href="#">&iquest;Ya estas registrado&quest;</a>
+				<input type="submit" name="submit" value="Iniciar Sesi&oacute;n">
+			</div>
+		</div>
+	</div>
+	<footer>
+		<ul class="nolist f-center">
+			<li><a href="#">Aviso de Terminos y Condiciones</a></li>
+			<li><a href="#">Tel&eacute;fono: (+52 -81) 1948 - 6763</a></li>
+			<li><a href="#">Correo electr&oacute;nico: vitalmed@outlook.es</a></li>
+			<li><a href="#">VitalMed es creado por Alcance M&eacute;dico S.A de C.V</a></li>
+		</ul>
+	</footer>
+</body>
+</html>
