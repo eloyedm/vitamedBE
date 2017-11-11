@@ -76,7 +76,7 @@ class DefaultController extends Controller
          if($encoded_pass == $savedPass){
            return new JsonResponse(array(
              'status' => 202,
-             'response' => 'succesfully created user'
+             'response' => 'succesfully logged in'
            ));
          }else{
            return new JsonResponse(array(
