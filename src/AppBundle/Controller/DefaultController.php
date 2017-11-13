@@ -72,11 +72,17 @@ class DefaultController extends Controller
 
          $encoded_pass = $encoder->encodePassword($password, $usuario->getSalt());
          $savedPass = $usuario->getPassword();
+         $token = bin2hex(random_bytes(24));
+         $usuario->setConfirmationToken($token);
+         $em->flush();
 
          if($encoded_pass == $savedPass){
            return new JsonResponse(array(
              'status' => 202,
-             'response' => 'succesfully logged in'
+             'response' => 'succesfully logged in',
+             'data' => array(
+               'token' => $token
+             )
            ));
          }else{
            return new JsonResponse(array(
@@ -85,6 +91,18 @@ class DefaultController extends Controller
            ));
          }
       }
+
+     /**
+      * @Route("/services/check", name="check")
+      */
+     public function checkServiceAction(Request $request){
+       $name = 'eloy.edm@gmail.com';
+       $em = $this->getDoctrine()->getManager();
+       $usuario = $this->getDoctrine()->getRepository('AppBundle\Entity\Usuario')->findOneBy(array('correou' => $name));
+
+       dump($usuario);
+       die();
+     }
 
      /**
       * @Route("/registro", name="Signin")
