@@ -105,6 +105,28 @@ class DefaultController extends Controller
      }
 
      /**
+      * @Route("/services/validate", name="check")
+      */
+     public function validateServiceAction(Request $request){
+       $em = $this->getDoctrine()->getManager();
+       $user = $request->request->get('user');
+       $token = $request->request->get('token');
+       $usuario = $this->getDoctrine()->getRepository('AppBundle\Entity\Usuario')->findOneBy(array('correou' => $user, 'confirmationToken' => $token));
+
+       if($usuario != null){
+         return new JsonResponse(array(
+           'status' => 202,
+           'response' => 'succesfully validate'
+         ));
+       }else{
+         return new JsonResponse(array(
+           'status' => 404
+         ));
+       }
+     }
+
+
+     /**
       * @Route("/registro", name="Signin")
       */
      public function siginAction(){
