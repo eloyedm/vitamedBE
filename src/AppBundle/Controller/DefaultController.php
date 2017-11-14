@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use AppBundle\Entity\Usuario;
+use AppBundle\Entity\Cita;
 
 class DefaultController extends Controller
 {
@@ -98,6 +99,7 @@ class DefaultController extends Controller
      public function dashboardAction(Request $request){
        $em = $this->getDoctrine()->getManager();
        $user = $request->request->get('user');
+       dump($user);
        $query = $em->createQuery("SELECT c.idcita as cita, c.fechac as fecha, concat(d.nombred, ' ', d.apellidopd) AS doctor, co.nombrecon as consultorio
        FROM AppBundle\Entity\Cita c
        LEFT JOIN c.usuarioc u
@@ -105,9 +107,12 @@ class DefaultController extends Controller
        LEFT JOIN c.consultorioc co
        WHERE u.username = :user");
        $query->setParameter('user', $user);
-      dump($query->getResult());
-      die();
-    }
+       return new JsonResponse(array(
+         'status' => 202,
+         'response' => 'succesfully logged in',
+         'citas' => $query->getResult()
+       ));
+     }
      /**
       * @Route("/services/check", name="check")
       */
@@ -121,7 +126,7 @@ class DefaultController extends Controller
      }
 
      /**
-      * @Route("/services/validate", name="check")
+      * @Route("/services/validate", name="validate")
       */
      public function validateServiceAction(Request $request){
        $em = $this->getDoctrine()->getManager();
@@ -133,6 +138,40 @@ class DefaultController extends Controller
          return new JsonResponse(array(
            'status' => 202,
            'response' => 'succesfully validate'
+         ));
+       }else{
+         return new JsonResponse(array(
+           'status' => 404
+         ));
+       }
+     }
+
+     /**
+      * @Route("/services/cita", name="check")
+      */
+     public function createDateServiceAction(Request $request){
+       $em = $this->getDoctrine()->getManager();
+       $cita = new Cita();
+
+       $fecha = $request->request->get('fecha');
+       $hora = $request->request->get('hora');
+       $departamento = $request->request->get('departamento');
+       $medico = $request->request->get('medico');
+       $consultorio = $request->request->get('consultorio');
+
+       $doctorEntity = $em->getRepository('AppBundle\Entity\Doctor')->findOneBy(array('iddoctor' => $medico));
+       $consultorioEntity = $em->getRepository('AppBundle\Entity\Consultorio')->findOneBy(array('idconsultorio' => $consultorio));
+       $cita->setFechac($fecha);
+       $cita->setHorac($hora);
+       $cita->setDoctorc($doctorEntity);
+       $cita->setConsultorioc($consultorioEntity);
+       $em->persist($cita);
+       $em->flush();
+
+       if($cita != null){
+         return new JsonResponse(array(
+           'status' => 202,
+           'response' => 'succesfully create cita'
          ));
        }else{
          return new JsonResponse(array(

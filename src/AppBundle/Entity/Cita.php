@@ -203,4 +203,50 @@ class Cita
     {
         return $this->consultorioc;
     }
+
+    /**
+     * Set consultorioc
+     *
+     * @param \AppBundle\Entity\Consultorio $consultorioc
+     * @return Cita
+     */
+    public function setUsuarioc(\AppBundle\Entity\Usuario $usuario = null)
+    {
+        $this->usuarioc = $usuarioc;
+
+        return $this;
+    }
+
+    /**
+     * Get consultorioc
+     *
+     * @return \AppBundle\Entity\Consultorio
+     */
+    public function getUsuarioc()
+    {
+        return $this->usuarioc;
+    }
+
+    /**
+     * Set consultorioc
+     *
+     * @param \AppBundle\Entity\Consultorio $consultorioc
+     * @return Cita
+     */
+    public function setDoctorc(\AppBundle\Entity\Doctor $doctorc = null)
+    {
+        $this->doctorc = $doctorc;
+
+        return $this;
+    }
+
+    /**
+     * Get consultorioc
+     *
+     * @return \AppBundle\Entity\Consultorio
+     */
+    public function getDoctorc()
+    {
+        return $this->doctorc;
+    }
 }

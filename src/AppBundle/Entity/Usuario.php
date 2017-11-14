@@ -113,8 +113,6 @@ class Usuario extends BaseUser
      */
     private $idusuario;
 
-
-
     /**
      * Set sangreu
      *
@@ -131,7 +129,7 @@ class Usuario extends BaseUser
     /**
      * Get sangreu
      *
-     * @return string 
+     * @return string
      */
     public function getSangreu()
     {
@@ -154,7 +152,7 @@ class Usuario extends BaseUser
     /**
      * Get fotou
      *
-     * @return string 
+     * @return string
      */
     public function getFotou()
     {
@@ -177,7 +175,7 @@ class Usuario extends BaseUser
     /**
      * Get nombreu
      *
-     * @return string 
+     * @return string
      */
     public function getNombreu()
     {
@@ -200,7 +198,7 @@ class Usuario extends BaseUser
     /**
      * Get telefonou
      *
-     * @return string 
+     * @return string
      */
     public function getTelefonou()
     {
@@ -223,7 +221,7 @@ class Usuario extends BaseUser
     /**
      * Get contrau
      *
-     * @return binary 
+     * @return binary
      */
     public function getContrau()
     {
@@ -246,7 +244,7 @@ class Usuario extends BaseUser
     /**
      * Get apellidomu
      *
-     * @return string 
+     * @return string
      */
     public function getApellidomu()
     {
@@ -269,7 +267,7 @@ class Usuario extends BaseUser
     /**
      * Get apellidopu
      *
-     * @return string 
+     * @return string
      */
     public function getApellidopu()
     {
@@ -292,7 +290,7 @@ class Usuario extends BaseUser
     /**
      * Get calleu
      *
-     * @return string 
+     * @return string
      */
     public function getCalleu()
     {
@@ -315,7 +313,7 @@ class Usuario extends BaseUser
     /**
      * Get correou
      *
-     * @return string 
+     * @return string
      */
     public function getCorreou()
     {
@@ -338,7 +336,7 @@ class Usuario extends BaseUser
     /**
      * Get coloniau
      *
-     * @return string 
+     * @return string
      */
     public function getColoniau()
     {
@@ -361,7 +359,7 @@ class Usuario extends BaseUser
     /**
      * Get nocasau
      *
-     * @return string 
+     * @return string
      */
     public function getNocasau()
     {
@@ -384,7 +382,7 @@ class Usuario extends BaseUser
     /**
      * Get paisu
      *
-     * @return string 
+     * @return string
      */
     public function getPaisu()
     {
@@ -407,7 +405,7 @@ class Usuario extends BaseUser
     /**
      * Get estado
      *
-     * @return string 
+     * @return string
      */
     public function getEstado()
     {
@@ -417,7 +415,7 @@ class Usuario extends BaseUser
     /**
      * Get idusuario
      *
-     * @return integer 
+     * @return integer
      */
     public function getIdusuario()
     {
