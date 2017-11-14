@@ -113,6 +113,29 @@ class DefaultController extends Controller
          'citas' => $query->getResult()
        ));
      }
+
+     /**
+    * @Route("/services/recordatorios", name="Recordatorios")
+    */
+    public function remindersAction(Request $request){
+      $em = $this->getDoctrine()->getManager();
+      $user = $request->request->get('user');
+      dump($user);
+      $query = $em->createQuery("SELECT n.idnotificacion as notificacion, n.fechan as fecha, concat(d.nombred, ' ', d.apellidopd) AS doctor, co.nombrecon as consultorio, ci.idcita AS cita
+      FROM AppBundle\Entity\Notificacion n
+      LEFT JOIN n.citan ci
+      LEFT JOIN ci.doctorc d
+      LEFT JOIN ci.consultorioc co
+      LEFT JOIN ci.usuarioc u
+      WHERE u.username = :user");
+      $query->setParameter('user', $user);
+      return new JsonResponse(array(
+        'status' => 202,
+        'response' => 'succesfully logged in',
+        'citas' => $query->getResult()
+      ));
+    }
+
      /**
       * @Route("/services/check", name="check")
       */
