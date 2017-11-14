@@ -25,7 +25,7 @@ class DefaultController extends Controller
     /**
      * @Route("/services/register", name="Registro")
      */
-     public function registerAction(Request $request){
+    public function registerAction(Request $request){
         $usuario = $request->request->get('usuario');
         $em = $this->getDoctrine()->getManager();
         $password = $request->request->get('password');
@@ -59,7 +59,7 @@ class DefaultController extends Controller
      /**
       * @Route("/services/login", name="Inicio")
       */
-     public function loginServiceAction(Request $request){
+    public function loginServiceAction(Request $request){
          $em = $this->getDoctrine()->getManager();
          $password = $request->request->get('password');
          $email = $request->request->get('email');
@@ -86,13 +86,30 @@ class DefaultController extends Controller
          }
       }
 
-     /**
-      * @Route("/registro", name="Signin")
-      */
-     public function siginAction(){
-       return $this->render("AppBundle::signin.html.twig", array(
-        ));
+      /**
+     * @Route("/services/dashboard", name="Dashboard")
+     */
+     public function dashboardAction(Request $request){
+       $em = $this->getDoctrine()->getManager();
+       $user = $request->request->get('user');
+       $query = $em->createQuery("SELECT c.idcita as cita, c.fechac as fecha, concat(d.nombred, ' ', d.apellidopd) AS doctor, co.nombrecon as consultorio
+       FROM AppBundle\Entity\Cita c
+       LEFT JOIN c.usuarioc u
+       LEFT JOIN c.doctorc d
+       LEFT JOIN c.consultorioc co
+       WHERE u.username = :user");
+       $query->setParameter('user', $user);
+      dump($query->getResult());
+      die();
      }
+
+    /**
+     * @Route("/registro", name="Signin")
+     */
+    public function siginAction(){
+      return $this->render("AppBundle::signin.html.twig", array(
+      ));
+    }
 
      /**
       * @Route("/iniciosesion", name="InicioSesion")

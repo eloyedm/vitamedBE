@@ -59,7 +59,25 @@ class Cita
      */
     private $consultorioc;
 
+    /**
+     * @var \AppBundle\Entity\Usuario
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Usuario")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="usuarioC", referencedColumnName="idUsuario")
+     * })
+     */
+    private $usuarioc;
 
+    /**
+     * @var \AppBundle\Entity\Usuario
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Doctor")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="doctorc", referencedColumnName="idDoctor")
+     * })
+     */
+    private $doctorc;
 
     /**
      * Set fechac
@@ -77,7 +95,7 @@ class Cita
     /**
      * Get fechac
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFechac()
     {
@@ -100,7 +118,7 @@ class Cita
     /**
      * Get horac
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getHorac()
     {
@@ -123,7 +141,7 @@ class Cita
     /**
      * Get estatusc
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getEstatusc()
     {
@@ -146,7 +164,7 @@ class Cita
     /**
      * Get mensajec
      *
-     * @return string 
+     * @return string
      */
     public function getMensajec()
     {
@@ -156,7 +174,7 @@ class Cita
     /**
      * Get idcita
      *
-     * @return integer 
+     * @return integer
      */
     public function getIdcita()
     {
@@ -179,7 +197,7 @@ class Cita
     /**
      * Get consultorioc
      *
-     * @return \AppBundle\Entity\Consultorio 
+     * @return \AppBundle\Entity\Consultorio
      */
     public function getConsultorioc()
     {
