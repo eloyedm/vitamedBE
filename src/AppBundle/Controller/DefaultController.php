@@ -184,8 +184,14 @@ class DefaultController extends Controller
 
        $doctorEntity = $em->getRepository('AppBundle\Entity\Doctor')->findOneBy(array('iddoctor' => $medico));
        $consultorioEntity = $em->getRepository('AppBundle\Entity\Consultorio')->findOneBy(array('idconsultorio' => $consultorio));
-       $cita->setFechac($fecha);
-       $cita->setHorac($hora);
+       $cita->setFechac(new \DateTime($fecha));
+      //  $hora = new \DateTime($hora);
+      //  $hora = $hora->format('H:i:s');
+      //
+      //  $formatHora = date("H:i:s",strtotime($hora));
+      //
+      // dump($formatHora);
+       $cita->setHorac(new \DateTime($hora));
        $cita->setDoctorc($doctorEntity);
        $cita->setConsultorioc($consultorioEntity);
        $em->persist($cita);
