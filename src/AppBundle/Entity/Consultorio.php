@@ -28,7 +28,15 @@ class Consultorio
      */
     private $idconsultorio;
 
-
+    /**
+     * @var \AppBundle\Entity\Usuario
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Doctor")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="doctorc", referencedColumnName="idDoctor")
+     * })
+     */
+    private $doctorc;
 
     /**
      * Set nombrecon
@@ -46,7 +54,7 @@ class Consultorio
     /**
      * Get nombrecon
      *
-     * @return string 
+     * @return string
      */
     public function getNombrecon()
     {
@@ -56,10 +64,33 @@ class Consultorio
     /**
      * Get idconsultorio
      *
-     * @return integer 
+     * @return integer
      */
     public function getIdconsultorio()
     {
         return $this->idconsultorio;
+    }
+
+    /**
+     * Set consultorioc
+     *
+     * @param \AppBundle\Entity\Consultorio $consultorioc
+     * @return Cita
+     */
+    public function setDoctorc(\AppBundle\Entity\Doctor $doctorc = null)
+    {
+        $this->doctorc = $doctorc;
+
+        return $this;
+    }
+
+    /**
+     * Get consultorioc
+     *
+     * @return \AppBundle\Entity\Consultorio
+     */
+    public function getDoctorc()
+    {
+        return $this->doctorc;
     }
 }

@@ -93,26 +93,25 @@ class DefaultController extends Controller
          }
       }
 
-      /**
-     * @Route("/services/dashboard", name="Dashboard")
-     */
-     public function dashboardAction(Request $request){
-       $em = $this->getDoctrine()->getManager();
-       $user = $request->request->get('user');
-       dump($user);
-       $query = $em->createQuery("SELECT c.idcita as cita, c.fechac as fecha, concat(d.nombred, ' ', d.apellidopd) AS doctor, co.nombrecon as consultorio
-       FROM AppBundle\Entity\Cita c
-       LEFT JOIN c.usuarioc u
-       LEFT JOIN c.doctorc d
-       LEFT JOIN c.consultorioc co
-       WHERE u.username = :user");
-       $query->setParameter('user', $user);
-       return new JsonResponse(array(
-         'status' => 202,
-         'response' => 'succesfully logged in',
-         'citas' => $query->getResult()
-       ));
-     }
+    /**
+    * @Route("/services/dashboard", name="Dashboard")
+    */
+    public function dashboardAction(Request $request){
+     $em = $this->getDoctrine()->getManager();
+     $user = $request->request->get('user');
+     $query = $em->createQuery("SELECT c.idcita as cita, c.fechac as fecha, concat(d.nombred, ' ', d.apellidopd) AS doctor, co.nombrecon as consultorio
+     FROM AppBundle\Entity\Cita c
+     LEFT JOIN c.usuarioc u
+     LEFT JOIN c.doctorc d
+     LEFT JOIN c.consultorioc co
+     WHERE u.username = :user");
+     $query->setParameter('user', $user);
+     return new JsonResponse(array(
+       'status' => 202,
+       'response' => 'succesfully logged in',
+       'citas' => $query->getResult()
+     ));
+    }
 
      /**
     * @Route("/services/recordatorios", name="Recordatorios")
@@ -120,7 +119,6 @@ class DefaultController extends Controller
     public function remindersAction(Request $request){
       $em = $this->getDoctrine()->getManager();
       $user = $request->request->get('user');
-      dump($user);
       $query = $em->createQuery("SELECT n.idnotificacion as notificacion, n.fechan as fecha, concat(d.nombred, ' ', d.apellidopd) AS doctor, co.nombrecon as consultorio, ci.idcita AS cita
       FROM AppBundle\Entity\Notificacion n
       LEFT JOIN n.citan ci
@@ -136,78 +134,101 @@ class DefaultController extends Controller
       ));
     }
 
-     /**
-      * @Route("/services/check", name="check")
-      */
-     public function checkServiceAction(Request $request){
-       $name = 'eloy.edm@gmail.com';
-       $em = $this->getDoctrine()->getManager();
-       $usuario = $this->getDoctrine()->getRepository('AppBundle\Entity\Usuario')->findOneBy(array('correou' => $name));
+    /**
+    * @Route("/services/check", name="check")
+    */
+    public function checkServiceAction(Request $request){
+      $name = 'eloy.edm@gmail.com';
+      $em = $this->getDoctrine()->getManager();
+      $usuario = $this->getDoctrine()->getRepository('AppBundle\Entity\Usuario')->findOneBy(array('correou' => $name));
 
-       dump($usuario);
-       die();
+      dump($usuario);
+      die();
+    }
+
+    /**
+    * @Route("/services/validate", name="validate")
+    */
+    public function validateServiceAction(Request $request){
+      $em = $this->getDoctrine()->getManager();
+      $user = $request->request->get('user');
+      $token = $request->request->get('token');
+      $usuario = $this->getDoctrine()->getRepository('AppBundle\Entity\Usuario')->findOneBy(array('correou' => $user, 'confirmationToken' => $token));
+
+      if($usuario != null){
+       return new JsonResponse(array(
+         'status' => 202,
+         'response' => 'succesfully validate'
+       ));
+      }else{
+       return new JsonResponse(array(
+         'status' => 404
+       ));
+      }
+    }
+
+    /**
+    * @Route("/services/cita", name="createDate")
+    */
+    public function createDateServiceAction(Request $request){
+     $em = $this->getDoctrine()->getManager();
+     $cita = new Cita();
+
+     $fecha = $request->request->get('fecha');
+     $hora = $request->request->get('hora');
+     $consultorio = $request->request->get('consultorio');
+     $user = $request->request->get('user');
+     $userEntity = $em->getRepository('AppBundle\Entity\Usuario')->findOneBy(array('correou' => $user));
+     $consultorioEntity = $em->getRepository('AppBundle\Entity\Consultorio')->findOneBy(array('idconsultorio' => $consultorio));
+     $doctorEntity = $consultorioEntity->getDoctorc();
+     $cita->setFechac(new \DateTime($fecha));
+    //  $hora = new \DateTime($hora);
+    //  $hora = $hora->format('H:i:s');
+    //
+    //  $formatHora = date("H:i:s",strtotime($hora));
+    //
+    // dump($formatHora);
+     $cita->setHorac(new \DateTime($hora));
+     $cita->setDoctorc($doctorEntity);
+     $cita->setUsuarioc($userEntity);
+     $cita->setConsultorioc($consultorioEntity);
+     $em->persist($cita);
+     $em->flush();
+
+     if($cita != null){
+       return new JsonResponse(array(
+         'status' => 202,
+         'response' => 'succesfully create cita'
+       ));
+     }else{
+       return new JsonResponse(array(
+         'status' => 404
+       ));
      }
+   }
 
-     /**
-      * @Route("/services/validate", name="validate")
-      */
-     public function validateServiceAction(Request $request){
-       $em = $this->getDoctrine()->getManager();
-       $user = $request->request->get('user');
-       $token = $request->request->get('token');
-       $usuario = $this->getDoctrine()->getRepository('AppBundle\Entity\Usuario')->findOneBy(array('correou' => $user, 'confirmationToken' => $token));
+    /**
+    * @Route("/services/consultorios", name="getConsultorios")
+    */
+    public function getConsultoriosServiceAction(Request $request){
+     $em = $this->getDoctrine()->getManager();
 
-       if($usuario != null){
-         return new JsonResponse(array(
-           'status' => 202,
-           'response' => 'succesfully validate'
-         ));
-       }else{
-         return new JsonResponse(array(
-           'status' => 404
-         ));
-       }
+     $query = $em->createQuery("SELECT co.nombrecon as consultorio, co.idconsultorio as numero
+     FROM AppBundle\Entity\Consultorio co");
+
+     $consultorios = $query->getResult();
+     if($consultorios != null){
+       return new JsonResponse(array(
+         'status' => 202,
+         'response' => 'succesfully retrieved consultorios',
+         'consultorios' => $consultorios
+       ));
+     }else{
+       return new JsonResponse(array(
+         'status' => 404
+       ));
      }
-
-     /**
-      * @Route("/services/cita", name="check")
-      */
-     public function createDateServiceAction(Request $request){
-       $em = $this->getDoctrine()->getManager();
-       $cita = new Cita();
-
-       $fecha = $request->request->get('fecha');
-       $hora = $request->request->get('hora');
-       $departamento = $request->request->get('departamento');
-       $medico = $request->request->get('medico');
-       $consultorio = $request->request->get('consultorio');
-
-       $doctorEntity = $em->getRepository('AppBundle\Entity\Doctor')->findOneBy(array('iddoctor' => $medico));
-       $consultorioEntity = $em->getRepository('AppBundle\Entity\Consultorio')->findOneBy(array('idconsultorio' => $consultorio));
-       $cita->setFechac(new \DateTime($fecha));
-      //  $hora = new \DateTime($hora);
-      //  $hora = $hora->format('H:i:s');
-      //
-      //  $formatHora = date("H:i:s",strtotime($hora));
-      //
-      // dump($formatHora);
-       $cita->setHorac(new \DateTime($hora));
-       $cita->setDoctorc($doctorEntity);
-       $cita->setConsultorioc($consultorioEntity);
-       $em->persist($cita);
-       $em->flush();
-
-       if($cita != null){
-         return new JsonResponse(array(
-           'status' => 202,
-           'response' => 'succesfully create cita'
-         ));
-       }else{
-         return new JsonResponse(array(
-           'status' => 404
-         ));
-       }
-     }
+   }
 
     /**
      * @Route("/registro", name="Signin")

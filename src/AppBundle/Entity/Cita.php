@@ -41,6 +41,13 @@ class Cita
     private $mensajec;
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="prioridad", type="boolean", nullable=true)
+     */
+    private $prioridad;
+
+    /**
      * @var integer
      *
      * @ORM\Column(name="idCita", type="integer")
@@ -70,7 +77,7 @@ class Cita
     private $usuarioc;
 
     /**
-     * @var \AppBundle\Entity\Usuario
+     * @var \AppBundle\Entity\Doctor
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Doctor")
      * @ORM\JoinColumns({
@@ -78,6 +85,17 @@ class Cita
      * })
      */
     private $doctorc;
+
+    /**
+     * @var \AppBundle\Entity\Departamento
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Departamento")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="doctorc", referencedColumnName="idDepartamento")
+     * })
+     */
+    private $departamentoc;
+
 
     /**
      * Set fechac
@@ -187,7 +205,7 @@ class Cita
      * @param \AppBundle\Entity\Consultorio $consultorioc
      * @return Cita
      */
-    public function setConsultorioc(\AppBundle\Entity\Consultorio $consultorioc = null)
+    public function setConsultorioc(\AppBundle\Entity\Consultorio $consultorioc)
     {
         $this->consultorioc = $consultorioc;
 
@@ -210,9 +228,9 @@ class Cita
      * @param \AppBundle\Entity\Consultorio $consultorioc
      * @return Cita
      */
-    public function setUsuarioc(\AppBundle\Entity\Usuario $usuario = null)
+    public function setUsuarioc(\AppBundle\Entity\Usuario $usuario)
     {
-        $this->usuarioc = $usuarioc;
+        $this->usuarioc = $usuario;
 
         return $this;
     }
@@ -233,7 +251,7 @@ class Cita
      * @param \AppBundle\Entity\Consultorio $consultorioc
      * @return Cita
      */
-    public function setDoctorc(\AppBundle\Entity\Doctor $doctorc = null)
+    public function setDoctorc(\AppBundle\Entity\Doctor $doctorc)
     {
         $this->doctorc = $doctorc;
 
@@ -248,5 +266,22 @@ class Cita
     public function getDoctorc()
     {
         return $this->doctorc;
+    }
+
+    public function setDepartamentoc(\AppBundle\Entity\Departamento $departamentoc = null)
+    {
+        $this->$departamentoc = $departamentoc;
+
+        return $this;
+    }
+
+    /**
+     * Get consultorioc
+     *
+     * @return \AppBundle\Entity\Consultorio
+     */
+    public function getDepartamentoc()
+    {
+        return $this->$departamentoc;
     }
 }

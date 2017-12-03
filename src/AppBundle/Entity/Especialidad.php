@@ -7,26 +7,26 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Alergia
  *
- * @ORM\Table(name="alergia")
+ * @ORM\Table(name="especialidad")
  * @ORM\Entity
  */
-class Alergia
+class Especialidad
 {
     /**
      * @var string
      *
-     * @ORM\Column(name="nombreA", type="string", length=25, nullable=true)
+     * @ORM\Column(name="nombreEs", type="string", length=25, nullable=true)
      */
-    private $nombrea;
+    private $nombrees;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="idAlergia", type="integer")
+     * @ORM\Column(name="idEspecialidad", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $idalergia;
+    private $idesp;
 
 
 
@@ -36,30 +36,30 @@ class Alergia
      * @param string $nombrea
      * @return Alergia
      */
-    public function setNombrea($nombrea)
+    public function setNombrees($nombrees)
     {
-        $this->nombrea = $nombrea;
+        $this->$nombrees = $nombrees;
 
         return $this;
     }
 
     /**
-     * Get nombrea
+     * Get nombrees
      *
      * @return string
      */
-    public function getNombrea()
+    public function getNombrees()
     {
-        return $this->nombrea;
+        return $this->$nombrees;
     }
 
     /**
-     * Get idalergia
+     * Get idespecialidad
      *
      * @return integer
      */
-    public function getIdalergia()
+    public function getIdesp()
     {
-        return $this->idalergia;
+        return $this->idesp;
     }
 }

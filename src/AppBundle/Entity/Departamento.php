@@ -7,57 +7,48 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Doctor
  *
- * @ORM\Table(name="doctor")
+ * @ORM\Table(name="departamento")
  * @ORM\Entity
  */
-class Doctor
+class Departamento
 {
     /**
      * @var string
      *
-     * @ORM\Column(name="nombreD", type="string", length=25, nullable=true)
+     * @ORM\Column(name="nombreDep", type="string", length=35, nullable=true)
      */
-    private $nombred;
+    private $nombredep;
 
     /**
-     * @var string
+     * @var \AppBundle\Entity\Doctor
      *
-     * @ORM\Column(name="apellidoMD", type="string", length=25, nullable=true)
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Doctor")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="doctordep", referencedColumnName="idDoctor")
+     * })
      */
-    private $apellidomd;
+    private $doctordep;
 
     /**
-     * @var string
+     * @var \AppBundle\Entity\Consultorio
      *
-     * @ORM\Column(name="apellidoPD", type="string", length=25, nullable=true)
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Consultorio")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="consultoriodep", referencedColumnName="idConsultorio")
+     * })
      */
-    private $apellidopd;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="especialidad", type="string", length=25, nullable=true)
-     */
-    private $especialidad;
+    private $consultoriodep;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="idDoctor", type="integer")
+     * @ORM\Column(name="idDepartamento", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $iddoctor;
+    private $iddep;
 
-    /**
-     * @var \AppBundle\Entity\Especialidad
-     *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Especialidad")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="idEsp", referencedColumnName="idEspecialidad")
-     * })
-     */
-    private $idesp;
+
 
     /**
      * Set nombred
