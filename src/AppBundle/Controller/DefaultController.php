@@ -173,7 +173,7 @@ class DefaultController extends Controller
     */
     public function createDateServiceAction(Request $request){
      $em = $this->getDoctrine()->getManager();
-     $cita = new Cita();
+     $cita = new Notificacion();
 
      $fecha = $request->request->get('fecha');
      $hora = $request->request->get('hora');
@@ -181,18 +181,11 @@ class DefaultController extends Controller
      $user = $request->request->get('user');
      $userEntity = $em->getRepository('AppBundle\Entity\Usuario')->findOneBy(array('correou' => $user));
      $consultorioEntity = $em->getRepository('AppBundle\Entity\Consultorio')->findOneBy(array('idconsultorio' => $consultorio));
-     $doctorEntity = $consultorioEntity->getDoctorc();
-     $cita->setFechac(new \DateTime($fecha));
-    //  $hora = new \DateTime($hora);
-    //  $hora = $hora->format('H:i:s');
-    //
-    //  $formatHora = date("H:i:s",strtotime($hora));
-    //
-    // dump($formatHora);
-     $cita->setHorac(new \DateTime($hora));
-     $cita->setDoctorc($doctorEntity);
-     $cita->setUsuarioc($userEntity);
-     $cita->setConsultorioc($consultorioEntity);
+     $cita->setFechan(new \DateTime($fecha));
+     $cita->setHoran(new \DateTime($hora));
+     $cita->setUsuarion($userEntity);
+     $cita->setConsultorion($consultorioEntity);
+     $cita->setTipo(2);
      $em->persist($cita);
      $em->flush();
 
@@ -206,16 +199,120 @@ class DefaultController extends Controller
          'status' => 404
        ));
      }
-   }
+    }
 
     /**
-    * @Route("/services/consultorios", name="getConsultorios")
+    * @Route("/services/especialidad", name="createEspecial")
+    */
+    public function createDateEspecialServiceAction(Request $request){
+      $em = $this->getDoctrine()->getManager();
+      $cita = new Notificacion();
+
+      $fecha = $request->request->get('fecha');
+      $hora = $request->request->get('hora');
+      $consultorio = $request->request->get('consultorio');
+      $user = $request->request->get('user');
+      $userEntity = $em->getRepository('AppBundle\Entity\Usuario')->findOneBy(array('correou' => $user));
+      $consultorioEntity = $em->getRepository('AppBundle\Entity\Consultorio')->findOneBy(array('idconsultorio' => $consultorio));
+      $cita->setFechan(new \DateTime($fecha));
+      $cita->setHoran(new \DateTime($hora));
+      $cita->setUsuarion($userEntity);
+      $cita->setConsultorion($consultorioEntity);
+      $cita->setTipo(3);
+      $em->persist($cita);
+      $em->flush();
+
+      if($cita != null){
+       return new JsonResponse(array(
+         'status' => 202,
+         'response' => 'succesfully create cita'
+       ));
+      }else{
+       return new JsonResponse(array(
+         'status' => 404
+       ));
+      }
+    }
+
+    /**
+    * @Route("/services/get/recetas")
+    */
+    public function recetasListServiceAction(Request $request){
+      $em = $this->getDoctrine()->getManager();
+      $user = $request->request->get('user');
+      $query = $em->createQuery("SELECT
+        n.idnotificacion as notificacion,
+        n.fechan as fecha,
+        n.horan as hora,
+        n.mensajen as mensaje
+        FROM AppBundle\Entity\Notificacion n
+        LEFT JOIN n.usuarion u
+        WHERE u.username = :user
+        AND n.tipo = 1");
+      $query->setParameter('user', $user);
+
+      return new JsonResponse(array(
+        'status' => 202,
+        'recetas' => $query->getResult()
+      ));
+    }
+
+    /**
+    * @Route("/services/get/general")
+    */
+    public function generalListServiceAction(Request $request){
+      $em = $this->getDoctrine()->getManager();
+      $user = $request->request->get('user');
+      $query = $em->createQuery("SELECT
+        n.idnotificacion as notificacion,
+        n.fechan as fecha,
+        n.horan as hora,
+        n.mensajen as mensaje,
+        con.nombrecon as consultorio
+        FROM AppBundle\Entity\Notificacion n
+        LEFT JOIN n.usuarion u
+        LEFT JOIN n.consultorion con
+        WHERE u.username = :user
+        AND n.tipo = 2");
+      $query->setParameter('user', $user);
+
+      return new JsonResponse(array(
+        'status' => 202,
+        'citas' => $query->getResult()
+      ));
+    }
+
+    /**
+    * @Route("/services/consultorioslist")
     */
     public function getConsultoriosServiceAction(Request $request){
      $em = $this->getDoctrine()->getManager();
 
      $query = $em->createQuery("SELECT co.nombrecon as consultorio, co.idconsultorio as numero
-     FROM AppBundle\Entity\Consultorio co WHERE co.isespecialidad == 0");
+     FROM AppBundle\Entity\Consultorio co WHERE co.isespecialidad = 0");
+
+     $consultorios = $query->getResult();
+     if($consultorios != null){
+       return new JsonResponse(array(
+         'status' => 202,
+         'response' => 'succesfully retrieved consultorios',
+         'consultorios' => $consultorios
+       ));
+     }else{
+       return new JsonResponse(array(
+         'status' => 404
+       ));
+     }
+    }
+
+    /**
+    * @Route("/services/consultoriosesplist")
+    */
+    public function getConsultoriosEspecialidadServiceAction(Request $request){
+     $em = $this->getDoctrine()->getManager();
+
+     $query = $em->createQuery("SELECT co.nombrecon as consultorio, co.idconsultorio as numero
+     FROM AppBundle\Entity\Consultorio co WHERE co.isespecialidad = 1");
 
      $consultorios = $query->getResult();
      if($consultorios != null){
@@ -269,18 +366,26 @@ class DefaultController extends Controller
       $hora = $request->request->get('hora');
       $user = $request->request->get('user');
       $userEntity = $em->getRepository('AppBundle\Entity\Usuario')->findOneBy(array('correou' => $user));
-      $notificacion->setFechan(new \DateTime($fecha));
-      $notificacion->setHoran(new \DateTime($hora));
-      $notificacion->setUsuarion($userEntity);
-      $notificacion->setTipo(2);
-      $notificacion->setMensajen('Recuerda rellenar tu receta');
-      $em->persist($notificacion);
-      $em->flush();
-      return new JsonResponse(array(
-        'status' => 202,
-        'response' => 'succesfully saved receta'
-      ));
+      if(count($userEntity) > 0){
+        $notificacion->setFechan(new \DateTime($fecha));
+        $notificacion->setHoran(new \DateTime($hora));
+        $notificacion->setUsuarion($userEntity);
+        $notificacion->setTipo(1);
+        $notificacion->setMensajen('Recuerda rellenar tu receta');
 
+        $em->persist($notificacion);
+        $em->flush();
+        return new JsonResponse(array(
+          'status' => 202,
+          'response' => 'succesfully saved receta'
+        ));
+      }
+      else{
+        return new JsonResponse(array(
+          'status' => 500,
+          'response' => 'Something went wrong'
+        ));
+      }
     }
 
     /**

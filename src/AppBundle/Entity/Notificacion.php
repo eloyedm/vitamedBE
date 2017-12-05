@@ -77,6 +77,16 @@ class Notificacion
     private $usuarion;
 
     /**
+     * @var \AppBundle\Entity\Consultorio
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Consultorio")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="consultorioN", referencedColumnName="idConsultorio")
+     * })
+     */
+    private $consultorion;
+
+    /**
      * Set fechan
      *
      * @param \DateTime $fechan
@@ -221,5 +231,28 @@ class Notificacion
     public function getUsuarion()
     {
         return $this->usuarion;
+    }
+
+    /**
+     * Set consultorioc
+     *
+     * @param \AppBundle\Entity\Consultorio $consultorioc
+     * @return Cita
+     */
+    public function setConsultorion(\AppBundle\Entity\Consultorio $consultorion)
+    {
+        $this->consultorion = $consultorion;
+
+        return $this;
+    }
+
+    /**
+     * Get consultorioc
+     *
+     * @return \AppBundle\Entity\Consultorio
+     */
+    public function getConsultorion()
+    {
+        return $this->consultorion;
     }
 }
