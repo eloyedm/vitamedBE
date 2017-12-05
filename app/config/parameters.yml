@@ -4,8 +4,8 @@ parameters:
     database_port: null
     database_name: med
     database_user: root
-    database_password: homecoming96
+    database_password: diaz.1913
     mailer_transport: gmail
-    mailer_user: eloy.edm@gmail.com
-    mailer_password: tragedies
+    mailer_user: 
+    mailer_password: 
     secret: 4bef84dfade414c3ddb0eebb144935b96e324ebf
