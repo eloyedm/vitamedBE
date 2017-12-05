@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use AppBundle\Entity\Usuario;
 use AppBundle\Entity\Cita;
+use AppBundle\Entity\Notificacion;
 
 class DefaultController extends Controller
 {
@@ -214,7 +215,7 @@ class DefaultController extends Controller
      $em = $this->getDoctrine()->getManager();
 
      $query = $em->createQuery("SELECT co.nombrecon as consultorio, co.idconsultorio as numero
-     FROM AppBundle\Entity\Consultorio co");
+     FROM AppBundle\Entity\Consultorio co WHERE co.isespecialidad == 0");
 
      $consultorios = $query->getResult();
      if($consultorios != null){
@@ -228,7 +229,59 @@ class DefaultController extends Controller
          'status' => 404
        ));
      }
-   }
+    }
+
+    /**
+    * @Route("/services/sendmail")
+    */
+    public function sendMailAction(){
+      $message = (new \Swift_Message('Hello Email'))
+        ->setFrom('send@example.com')
+        ->setTo('fexeduardo@gmail.com')
+        ->setBody('<div > hello</div>')
+        /*
+         * If you also want to include a plaintext version of the message
+        ->addPart(
+            $this->renderView(
+                'Emails/registration.txt.twig',
+                array('name' => $name)
+            ),
+            'text/plain'
+        )
+        */
+      ;
+
+      $this->get('mailer')->send($message);
+      return new JsonResponse(array(
+        'status' => 202,
+        'response' => 'succesfully create cita'
+      ));
+    }
+
+    /**
+    * @Route("/services/receta")
+    */
+    public function recetasAction(Request $request){
+      $em = $this->getDoctrine()->getManager();
+      $notificacion = new Notificacion();
+
+      $fecha = $request->request->get('fecha');
+      $hora = $request->request->get('hora');
+      $user = $request->request->get('user');
+      $userEntity = $em->getRepository('AppBundle\Entity\Usuario')->findOneBy(array('correou' => $user));
+      $notificacion->setFechan(new \DateTime($fecha));
+      $notificacion->setHoran(new \DateTime($hora));
+      $notificacion->setUsuarion($userEntity);
+      $notificacion->setTipo(2);
+      $notificacion->setMensajen('Recuerda rellenar tu receta');
+      $em->persist($notificacion);
+      $em->flush();
+      return new JsonResponse(array(
+        'status' => 202,
+        'response' => 'succesfully saved receta'
+      ));
+
+    }
 
     /**
      * @Route("/registro", name="Signin")

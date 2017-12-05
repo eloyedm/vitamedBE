@@ -20,6 +20,13 @@ class Consultorio
     private $nombrecon;
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="isEspecialidad", type="boolean", nullable=true)
+     */
+    private $isespecialidad;
+
+    /**
      * @var integer
      *
      * @ORM\Column(name="idConsultorio", type="integer")
@@ -92,5 +99,17 @@ class Consultorio
     public function getDoctorc()
     {
         return $this->doctorc;
+    }
+
+    public function getIsEspecialidad()
+    {
+      return $this->isEspecialidad;
+    }
+
+    public function setIsEspecialidad($isEspecialidad)
+    {
+      $this->isEspecialidad = $isEspecialidad;
+
+      return $this;
     }
 }

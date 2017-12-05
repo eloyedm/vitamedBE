@@ -86,16 +86,6 @@ class Cita
      */
     private $doctorc;
 
-    /**
-     * @var \AppBundle\Entity\Departamento
-     *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Departamento")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="doctorc", referencedColumnName="idDepartamento")
-     * })
-     */
-    private $departamentoc;
-
 
     /**
      * Set fechac
@@ -266,22 +256,5 @@ class Cita
     public function getDoctorc()
     {
         return $this->doctorc;
-    }
-
-    public function setDepartamentoc(\AppBundle\Entity\Departamento $departamentoc = null)
-    {
-        $this->$departamentoc = $departamentoc;
-
-        return $this;
-    }
-
-    /**
-     * Get consultorioc
-     *
-     * @return \AppBundle\Entity\Consultorio
-     */
-    public function getDepartamentoc()
-    {
-        return $this->$departamentoc;
     }
 }

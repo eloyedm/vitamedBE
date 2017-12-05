@@ -29,7 +29,7 @@ class Notificacion
     /**
      * @var string
      *
-     * @ORM\Column(name="mensajeN", type="string", length=25, nullable=true)
+     * @ORM\Column(name="mensajeN", type="string", length=45, nullable=true)
      */
     private $mensajen;
 
@@ -39,6 +39,12 @@ class Notificacion
      * @ORM\Column(name="estatusN", type="boolean", nullable=true)
      */
     private $estatusn;
+
+    /**
+    *
+    * @ORM\Column(type="tipo", type="integer", nullable=true)
+    */
+    private $tipo;
 
     /**
      * @var integer
@@ -60,6 +66,15 @@ class Notificacion
     private $citan;
 
 
+    /**
+     * @var \AppBundle\Entity\Usuario
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Usuario")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="usuarioN", referencedColumnName="idUsuario")
+     * })
+     */
+    private $usuarion;
 
     /**
      * Set fechan
@@ -77,7 +92,7 @@ class Notificacion
     /**
      * Get fechan
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFechan()
     {
@@ -100,11 +115,21 @@ class Notificacion
     /**
      * Get horan
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getHoran()
     {
         return $this->horan;
+    }
+
+    public function setTipo($tipo){
+      $this->tipo = $tipo;
+
+      return $this;
+    }
+
+    public function getTipo(){
+      return $this->tipo;
     }
 
     /**
@@ -123,7 +148,7 @@ class Notificacion
     /**
      * Get mensajen
      *
-     * @return string 
+     * @return string
      */
     public function getMensajen()
     {
@@ -146,7 +171,7 @@ class Notificacion
     /**
      * Get estatusn
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getEstatusn()
     {
@@ -156,7 +181,7 @@ class Notificacion
     /**
      * Get idnotificacion
      *
-     * @return integer 
+     * @return integer
      */
     public function getIdnotificacion()
     {
@@ -179,10 +204,22 @@ class Notificacion
     /**
      * Get citan
      *
-     * @return \AppBundle\Entity\Cita 
+     * @return \AppBundle\Entity\Cita
      */
     public function getCitan()
     {
         return $this->citan;
+    }
+
+    public function setUsuarion($usuarion)
+    {
+        $this->usuarion = $usuarion;
+
+        return $this;
+    }
+
+    public function getUsuarion()
+    {
+        return $this->usuarion;
     }
 }

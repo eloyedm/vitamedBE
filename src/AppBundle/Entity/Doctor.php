@@ -50,16 +50,6 @@ class Doctor
     private $iddoctor;
 
     /**
-     * @var \AppBundle\Entity\Especialidad
-     *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Especialidad")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="idEsp", referencedColumnName="idEspecialidad")
-     * })
-     */
-    private $idesp;
-
-    /**
      * Set nombred
      *
      * @param string $nombred
@@ -128,12 +118,6 @@ class Doctor
         return $this->apellidopd;
     }
 
-    /**
-     * Set especialidad
-     *
-     * @param string $especialidad
-     * @return Doctor
-     */
     public function setEspecialidad($especialidad)
     {
         $this->especialidad = $especialidad;
@@ -142,13 +126,13 @@ class Doctor
     }
 
     /**
-     * Get especialidad
+     * Get apellidopd
      *
      * @return string
      */
     public function getEspecialidad()
     {
-        return $this->especialidad;
+        return $this->$especialidad;
     }
 
     /**

@@ -5,8 +5,7 @@ parameters:
     database_name: med
     database_user: root
     database_password: homecoming96
-    mailer_transport: smtp
-    mailer_host: 127.0.0.1
-    mailer_user: null
-    mailer_password: null
+    mailer_transport: gmail
+    mailer_user: eloy.edm@gmail.com
+    mailer_password: tragedies
     secret: 4bef84dfade414c3ddb0eebb144935b96e324ebf
