@@ -283,6 +283,50 @@ class DefaultController extends Controller
     }
 
     /**
+    * @Route("/services/get/especial")
+    */
+    public function especiallListServiceAction(Request $request){
+      $em = $this->getDoctrine()->getManager();
+      $user = $request->request->get('user');
+      $query = $em->createQuery("SELECT
+        n.idnotificacion as notificacion,
+        n.fechan as fecha,
+        n.horan as hora,
+        n.mensajen as mensaje,
+        con.nombrecon as consultorio
+        FROM AppBundle\Entity\Notificacion n
+        LEFT JOIN n.usuarion u
+        LEFT JOIN n.consultorion con
+        WHERE u.username = :user
+        AND n.tipo = 3");
+      $query->setParameter('user', $user);
+
+      return new JsonResponse(array(
+        'status' => 202,
+        'citas' => $query->getResult()
+      ));
+    }
+
+    /**
+    * @Route("/services/userinfo")
+    */
+    public function userInfoServiceAction(Request $request){
+      $em = $this->getDoctrine()->getManager();
+      $user = $request->request->get('user');
+      $query = $em->createQuery("SELECT
+        u.nombreu as nombre,
+        u.apellidopu as apellidop,
+        u.apellidomu as apellidom
+        FROM AppBundle\Entity\Usuario u
+        WHERE u.username = :user");
+      $query->setParameter('user', $user);
+      return new JsonResponse(array(
+        'status' => 202,
+        'info' => $query->getResult()
+      ));
+    }
+
+    /**
     * @Route("/services/consultorioslist")
     */
     public function getConsultoriosServiceAction(Request $request){
