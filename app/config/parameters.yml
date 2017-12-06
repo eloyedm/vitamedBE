@@ -6,6 +6,6 @@ parameters:
     database_user: root
     database_password: diaz.1913
     mailer_transport: gmail
-    mailer_user: 
-    mailer_password: 
+    mailer_user: vital.medalcance@gmail.com
+    mailer_password: vitalmed400
     secret: 4bef84dfade414c3ddb0eebb144935b96e324ebf
