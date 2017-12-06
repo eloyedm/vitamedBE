@@ -76,7 +76,7 @@ class DefaultController extends Controller
               </div>
             </div>
             <div class="email-contact" style="width: 69%; margin: auto; height: 48px;">
-              <img style="width: 100%; height: 100%;" src="http://www.vitalmed.today/static/img/Barrita2.png">
+              <a href="http://www.vitalmed.today/welcome"><img style="width: 100%; height: 100%;" src="http://www.vitalmed.today/static/img/Barrita2.png"></a>
             </div>
           </div>','text/html')
           /*
@@ -518,26 +518,26 @@ class DefaultController extends Controller
         //       array('name' => $nombre)
         //   ),'text/html')
         ->setBody('<div class="email-container" style="width: 100%;">
-      		<div class="email-topbar" style="width:60%; margin: auto; height: 40px;">
-      			<img style="width: 100%; height: 100%;" src="http://www.vitalmed.today/static/img/Barrita1.png" alt="Email Topbar Image">
-      		</div>
-      		<div class="email-text" style="width: 30%; margin: auto; min-height: 188px;">
-      			<div class="text-container" style="max-height: 200px;">
-      				<p style="text-align: justify; font-size: 18px; display: block; margin: 15% 0;">
-      					Muchas gracias,'.$email.'
-      					Esperamos tu tiempo con nosotros sea de tu agrado y que aproveches todas
-      					las funciones que podemos ofrecerte en este sitio. A contunuaci�n te
-      					ofrecemos un link para activar tu cuenta y llevarte a una introducci�n a
-      					nuestra apliaci�n, te sera muy util y en cuesti�n de minutos ya podras
-      					empezar a agendar todas tus citas.
-      				</p>
-      				<img style="opacity: 0.2; position: relative; z-index: -1; left: 15%; top: -235px; display: block;" src="http://www.vitalmed.today/static/img/Logo.png" style="opacity: 0.4;">
-      			</div>
-      		</div>
-      		<div class="email-contact" style="width: 69%; margin: auto; height: 48px;">
-      			<img style="width: 100%; height: 100%;" src="http://www.vitalmed.today/static/img/Barrita2.png">
-      		</div>
-      	</div>','text/html')
+          <div class="email-topbar" style="width:60%; margin: auto; height: 40px;">
+            <img style="width: 100%; height: 100%;" src="http://www.vitalmed.today/static/img/Barrita1.png" alt="Email Topbar Image">
+          </div>
+          <div class="email-text" style="width: 30%; margin: auto; min-height: 188px;">
+            <div class="text-container" style="max-height: 200px;">
+              <p style="text-align: justify; font-size: 18px; display: block; margin: 15% 0;">
+                Muchas gracias,'.$nombre.'
+                Esperamos tu tiempo con nosotros sea de tu agrado y que aproveches todas
+                las funciones que podemos ofrecerte en este sitio. A contunuaci�n te
+                ofrecemos un link para activar tu cuenta y llevarte a una introducci�n a
+                nuestra apliaci�n, te sera muy util y en cuesti�n de minutos ya podras
+                empezar a agendar todas tus citas.
+              </p>
+              <img style="opacity: 0.2; position: relative; z-index: -1; left: 15%; top: -235px; display: block;" src="http://www.vitalmed.today/static/img/Logo.png" style="opacity: 0.4;">
+            </div>
+          </div>
+          <div class="email-contact" style="width: 69%; margin: auto; height: 48px;">
+            <a href="http://www.vitalmed.today/welcome"><img style="width: 100%; height: 100%;" src="http://www.vitalmed.today/static/img/Barrita2.png"></a>
+          </div>
+        </div>','text/html')
         /*
          * If you also want to include a plaintext version of the message
         ->addPart(
