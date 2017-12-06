@@ -242,6 +242,67 @@ class DefaultController extends Controller
     }
 
     /**
+    * @Route("/services/solicitar/cita")
+    */
+    public function requestDateServiceAction(Request $request){
+      $em = $this->getDoctrine()->getManager();
+      $consultorios = $em->getRepository('AppBundle\Entity\Consultorio')->findBy(array('isespecialidad' => 0));
+      $doctors = $em->getRepository('AppBundle\Entity\Doctor')->findAll();
+      $randomCons = array_rand($consultorios, 1);
+      $randomDoc = array_rand($doctors, 1);
+      $pickedCons = array(
+        'consultorio' => $consultorios[$randomCons]->getNombreCon(),
+        'idconsultorio' => $consultorios[$randomCons]->getIdconsultorio()
+      );
+      $pickedDoc = array(
+        'nombre' => $doctors[$randomDoc]->getNombred().' '.$doctors[$randomDoc]->getApellidoPd().' '.$doctors[$randomDoc]->getApellidoMd(),
+        'iddoctor' => $doctors[$randomDoc]->getIddoctor()
+      );
+      return new JsonResponse(array(
+        'status' => 202,
+        'response' => 'succesfully aqui esta tu cita posible',
+        'consultorio' => $pickedCons,
+        'doctor' => $pickedDoc
+      ));
+    }
+
+    /**
+    * @Route("/services/create/cita")
+    */
+    public function addDateServiceAction(Request $request){
+      $em = $this->getDoctrine()->getManager();
+      $cita = new Cita();
+
+      $fecha = $request->request->get('fecha');
+      $hora = $request->request->get('hora');
+      $consultorio = $request->request->get('consultorio');
+      $doctor = $request->request->get('doctor');
+      $user = $request->request->get('user');
+      $userEntity = $em->getRepository('AppBundle\Entity\Usuario')->findOneBy(array('correou' => $user));
+      $consultorioEntity = $em->getRepository('AppBundle\Entity\Consultorio')->findOneBy(array('idconsultorio' => $consultorio));
+      $doctorEntity = $em->getRepository('AppBundle\Entity\Doctor')->findOneBy(array('iddoctor' => $doctor));
+      $cita->setFechac(new \DateTime($fecha));
+      $cita->setHorac(new \DateTime($hora));
+      $cita->setUsuarioc($userEntity);
+      $cita->setConsultorioc($consultorioEntity);
+      $cita->setDoctorc($doctorEntity);
+      $em->persist($cita);
+      $em->flush();
+
+      if($cita != null){
+        return new JsonResponse(array(
+          'status' => 202,
+          'response' => 'succesfully create cita'
+        ));
+      }else{
+        return new JsonResponse(array(
+          'status' => 404
+        ));
+      }
+    }
+
+
+    /**
     * @Route("/services/especialidad", name="createEspecial")
     */
     public function createDateEspecialServiceAction(Request $request){
@@ -363,6 +424,37 @@ class DefaultController extends Controller
       return new JsonResponse(array(
         'status' => 202,
         'info' => $query->getResult()
+      ));
+    }
+
+    /**
+    * @Route("/services/get/general/grouped")
+    */
+    public function generalListByDateServiceAction(Request $request){
+      $em = $this->getDoctrine()->getManager();
+      $user = $request->request->get('user');
+      $query = $em->createQuery("SELECT
+        n.idnotificacion as notificacion,
+        n.fechan as fecha,
+        n.horan as hora,
+        n.mensajen as mensaje,
+        con.nombrecon as consultorio
+        FROM AppBundle\Entity\Notificacion n
+        LEFT JOIN n.usuarion u
+        LEFT JOIN n.consultorion con
+        WHERE u.username = :user
+        AND n.tipo = 2");
+      $query->setParameter('user', $user);
+      $months = array(0,0,0,0,0,0,0,0,0,0,0,0);
+      $dates = $query->getResult();
+      foreach ($dates as $key => $value) {
+        $newMonth = $value['fecha']->format('m')-1;
+        $months[$newMonth]++;
+      }
+      // dump($query->getResult());
+      return new JsonResponse(array(
+        'status' => 202,
+        'citas' => $months
       ));
     }
 
